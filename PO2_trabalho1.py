@@ -7,7 +7,7 @@
 #py installer --windowed PO2_trabalho1.py
 
 from PySimpleGUI import PySimpleGUI as sg
-from py_expression_eval import Parser
+from py_expression_eval import Expression, Parser
 
 
 # Define conteudo da janela
@@ -31,3 +31,36 @@ while True:
         atualizarResultado = str(parser.parse(valores['expressao']).evaluate({'x': x}))
         print(atualizarResultado)
         janela['resultado'].update('Resultado: ' + atualizarResultado)
+
+
+#   Teste: Método Busca Uniforme
+a = 0.5
+b = 2.5
+delta = 0.6
+f = []
+y = []
+i = 0
+x = a
+n = 2   
+# x^2-3*x+2
+# 2 primeiros valores serão guardos em um vetor para comparação
+while x <= b:
+    
+    if len(f) < 2:
+        for i in range(0, n):
+            y.append(x)
+            atualizarResultado = str(parser.parse(valores['expressao']).evaluate({'x': x}))
+            f.append(float(atualizarResultado))
+            x = x + delta
+    else:
+        n = len(f)
+        if (f[n-1] > f[n-2]): 
+            break
+            # refinamento
+        else:
+            y.append(x)
+            atualizarResultado = str(parser.parse(valores['expressao']).evaluate({'x': x}))
+            f.append(float(atualizarResultado))
+            x = x + delta
+    print(y)
+    print(f)
