@@ -32,35 +32,28 @@ while True:
         print(atualizarResultado)
         janela['resultado'].update('Resultado: ' + atualizarResultado)
 
+#   Rotina: Método Busca Uniforme - Funcionando
+f = []      # vetor do f(x)
+y = []      # vetor do x
+def BuscaUniforme(a,b,delta,atualizarResultado):
+    x = a
+    ok = False
+    while x <= b:
+        y.append(x)
+        atualizarResultado = str(parser.parse(valores['expressao']).evaluate({'x': x}))
+        f.append(float(atualizarResultado))
+        x = x + delta
+        if len(y) > 1 and len(f) > 1:                
+            if(f[len(f)-1] > f[len(f)-2]) and (ok == False):
+                ok = True
+                # Refinamento - depois tentar colocar em uma rotina separada
+                y.pop()
+                y.pop()
+                f.pop()
+                f.pop()
+                x = y[len(y)-1]
+                delta = delta / 10    
+            if(f[len(f)-1] > f[len(f)-2]) and (ok == True):
+                break
+    print("X* = %4f" % y[len(y)-2])
 
-#   Teste: Método Busca Uniforme
-a = 0.5
-b = 2.5
-delta = 0.6
-f = []
-y = []
-i = 0
-x = a
-n = 2   
-# x^2-3*x+2
-# 2 primeiros valores serão guardos em um vetor para comparação
-while x <= b:
-    
-    if len(f) < 2:
-        for i in range(0, n):
-            y.append(x)
-            atualizarResultado = str(parser.parse(valores['expressao']).evaluate({'x': x}))
-            f.append(float(atualizarResultado))
-            x = x + delta
-    else:
-        n = len(f)
-        if (f[n-1] > f[n-2]): 
-            break
-            # refinamento
-        else:
-            y.append(x)
-            atualizarResultado = str(parser.parse(valores['expressao']).evaluate({'x': x}))
-            f.append(float(atualizarResultado))
-            x = x + delta
-    print(y)
-    print(f)
