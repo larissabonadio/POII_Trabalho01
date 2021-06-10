@@ -14,27 +14,15 @@ from py_expression_eval import Expression, Parser
 sg.theme('Reddit')
 layout = [  [sg.Text('Expressão:'), sg.Input(key='expressao')],
             [sg.Text('x:'), sg.Input(key='variavel')],
+            [sg.Text('delta:'), sg.Input(key='delta')],
             [sg.Button('Ok')],
             [sg.Text('', justification='center', key='resultado', size=(10, 2))] ]
 
-# Cria janela
-janela = sg.Window('PO2 - Trabalho 1', layout)
-
-parser = Parser()
-
-while True:
-    eventos, valores = janela.read()
-    if eventos == sg.WINDOW_CLOSED:
-        break
-    if eventos == 'Ok':
-        x = float(valores['variavel'])
-        atualizarResultado = str(parser.parse(valores['expressao']).evaluate({'x': x}))
-        print(atualizarResultado)
-        janela['resultado'].update('Resultado: ' + atualizarResultado)
 
 #   Rotina: Método Busca Uniforme - Funcionando
 f = []      # vetor do f(x)
 y = []      # vetor do x
+# pra testar só trocar o a e b
 def BuscaUniforme(a,b,delta,atualizarResultado):
     x = a
     ok = False
@@ -57,3 +45,19 @@ def BuscaUniforme(a,b,delta,atualizarResultado):
                 break
     print("X* = %4f" % y[len(y)-2])
 
+# Cria janela
+janela = sg.Window('PO2 - Trabalho 1', layout)
+
+parser = Parser()
+
+while True:
+    eventos, valores = janela.read()
+    if eventos == sg.WINDOW_CLOSED:
+        break
+    if eventos == 'Ok':
+        x = float(valores['variavel'])
+        delta = float(valores['delta'])
+        atualizarResultado = str(parser.parse(valores['expressao']).evaluate({'x': x}))
+        print(atualizarResultado)
+        janela['resultado'].update('Resultado: ' + atualizarResultado)
+        BuscaUniforme(-1,6,delta,atualizarResultado)
