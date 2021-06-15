@@ -8,7 +8,9 @@
 
 from PySimpleGUI import PySimpleGUI as sg
 from py_expression_eval import Expression, Parser
+from sympy import *
 import math
+
 
 
 # Define conteudo da janela
@@ -139,7 +141,7 @@ while True:
         print(atualizarResultado)
         janela['resultado'].update('Resultado: ' + atualizarResultado)
 
-        # Testes
+        #Testes
         #BuscaUniforme(-1,6,delta,atualizarResultado)
         #passei delta como epsilon
         #SecaoAurea(0.5,2.5,delta)
