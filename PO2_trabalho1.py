@@ -6,12 +6,11 @@
 #pip install PyInstaller
 #py installer --windowed PO2_trabalho1.py
 
+from sympy.polys.polyoptions import Symbols 
 from PySimpleGUI import PySimpleGUI as sg
 from py_expression_eval import Expression, Parser
 from sympy import *
 import math
-
-
 
 # Define conteudo da janela
 sg.theme('Reddit')
@@ -23,10 +22,9 @@ layout = [  [sg.Text('Expressão:'), sg.Input(key='expressao')],
 
 
 #   Rotina: Método Busca Uniforme
-f = []      # vetor do f(x)
-y = []      # vetor do x
-# pra testar só trocar o a e b
 def BuscaUniforme(a,b,delta,atualizarResultado):
+    f = []      # vetor do f(x)
+    y = []      # vetor do x
     x = a
     ok = False
     while x <= b:
@@ -123,7 +121,15 @@ def Fibonacci(a,b,epsilon):
 #   Rotina: Método da Bisseão - Giu
 
 
-#   Rotina: Método de Newton  
+#   Rotina: Método de Newton 
+def MetodoNewton(funcao, a, b, epsilon):
+    x, y, z = symbols('x y z')
+    init_printing(use_unicode=True)
+
+    deriv1 = diff(funcao)
+    print(deriv1)
+    deriv2 = diff(deriv1)
+    print(deriv2)
 
 # Cria janela
 janela = sg.Window('PO2 - Trabalho 1', layout)
@@ -138,7 +144,7 @@ while True:
         x = float(valores['variavel'])
         delta = float(valores['delta'])
         atualizarResultado = str(parser.parse(valores['expressao']).evaluate({'x': x}))
-        print(atualizarResultado)
+        funcao = str(parser.parse(valores['expressao']))
         janela['resultado'].update('Resultado: ' + atualizarResultado)
 
         #Testes
@@ -146,3 +152,5 @@ while True:
         #passei delta como epsilon
         #SecaoAurea(0.5,2.5,delta)
         #Fibonacci(0.5,2.5,delta)
+        epsilon = 0.01
+        MetodoNewton(funcao,0.5,2.5,epsilon)
