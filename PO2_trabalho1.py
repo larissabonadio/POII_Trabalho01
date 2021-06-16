@@ -35,7 +35,6 @@ def BuscaUniforme(a,b,delta,atualizarResultado):
         if len(y) > 1 and len(f) > 1:                
             if(f[len(f)-1] > f[len(f)-2]) and (ok == False):
                 ok = True
-                # Refinamento - depois tentar colocar em uma rotina separada
                 y.pop()
                 y.pop()
                 f.pop()
@@ -121,16 +120,33 @@ def Fibonacci(a,b,epsilon):
 #   Rotina: Método da Bisseão - Giu
 
 
-#   Rotina: Método de Newton 
+#   Rotina: Método de Newton - x^2-3*x+2
 def MetodoNewton(funcao, a, b, epsilon):
     x, y, z = symbols('x y z')
     init_printing(use_unicode=True)
 
-    deriv1 = diff(funcao)
-    print(deriv1)
-    deriv2 = diff(deriv1)
-    print(deriv2)
+    x = a
+    deriv1 = str(diff(funcao))
+    d1 = float(parser.parse(deriv1).evaluate({'x' : x}))    
+    k = []
+    k.append(x)
 
+    while abs(float(d1)) >= epsilon:
+        
+        deriv2 = str(diff(deriv1))
+        d2 = float(parser.parse(deriv2).evaluate({'x' : x}))
+        
+        if d2 != 0.0:
+            x = k[len(k)-1] - (d1 / d2)
+            k.append(x)
+            if((abs(k[len(k)-1] - k[len(k)-2]) / max(1, abs(k[len(k)-2]))) < epsilon):         
+                break
+            else:
+                d1 = float(parser.parse(deriv1).evaluate({'x' : x}))
+        else:
+            break
+    print("X* = %4f" % k[len(k)-1])
+            
 # Cria janela
 janela = sg.Window('PO2 - Trabalho 1', layout)
 
@@ -152,5 +168,4 @@ while True:
         #passei delta como epsilon
         #SecaoAurea(0.5,2.5,delta)
         #Fibonacci(0.5,2.5,delta)
-        epsilon = 0.01
-        MetodoNewton(funcao,0.5,2.5,epsilon)
+        MetodoNewton(funcao,1.5,2.0,0.01)
