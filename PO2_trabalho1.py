@@ -1,52 +1,152 @@
-# Instalar separado no cmd
-#pip install py_expression_eval
-
-#pip install PySimpleGUI
-
-#pip install PyInstaller
-#py installer --windowed PO2_trabalho1.py
-
-from sympy.polys.polyoptions import Symbols 
-from PySimpleGUI import PySimpleGUI as sg
+import PySimpleGUI as sg
+from sympy.polys.polyoptions import Symbols
 from py_expression_eval import Expression, Parser
 from sympy import *
 import math
 
-# Define conteudo da janela
-sg.theme('Reddit')
-layout = [  [sg.Text('Expressão:'), sg.Input(key='expressao')],
-            [sg.Text('x:'), sg.Input(key='variavel')],
-            [sg.Text('delta:'), sg.Input(key='delta')],
-            [sg.Button('Ok')],
-            [sg.Text('', justification='center', key='resultado', size=(10, 2))] ]
+sg.theme('LightBrown13')
 
+def window_buscaUniforme():
+    layout = [[sg.Text('BUSCA UNIFORME', justification='center', font=('Arial', 11, 'bold'), text_color = '#921224')],
+            [sg.Text('         ')],
+            [sg.Text('Insira a função:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='expressao', size=(30,1))],
+            [sg.Text('Seja o intervalo a <= x <= b, insira:',  font=('Arial', 10, 'bold'), text_color = 'black')],
+            [sg.Text('Valor de a:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='valor_a', size=(10,1))],
+            [sg.Text('Valor de b:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='valor_b', size=(10,1))],
+            [sg.Text('Δ = ',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='delta', size=(10,1))],
+            [sg.Text('         ')],
+            [sg.Button('Calcular', size=(15,1)), sg.Button('Sair', size=(15,1))],
+            [sg.Text('         ')],
+            [sg.Text('         ')],
+            [sg.Text(size=(40,1), key='respostaUniforme1',  font=('Arial', 11, 'bold'))],
+            [sg.Text(size=(40,1), key='respostaUniforme2', text_color = 'black')]
+            ]
+    return sg.Window('Busca Uniforme', layout, size=(400, 400), finalize=True, resizable=True)
 
-#   Rotina: Método Busca Uniforme
-def BuscaUniforme(a,b,delta,atualizarResultado):
+def window_buscaDicotomica():
+    layout = [[sg.Text('BUSCA DICOTÔMICA', justification='center', font=('Arial', 11, 'bold'), text_color = '#921224')],
+            [sg.Text('         ')],
+            [sg.Text('Insira a função:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='expressao', size=(30,1))],
+            [sg.Text('Seja o intervalo a <= x <= b, insira:',  font=('Arial', 10, 'bold'), text_color = 'black')],
+            [sg.Text('Valor de a:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='valor_a', size=(10,1))],
+            [sg.Text('Valor de b:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='valor_b', size=(10,1))],
+            [sg.Text('Δ = ',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='delta', size=(10,1))],
+            [sg.Text('ε = ',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='epsilon', size=(10,1))],
+            [sg.Text('         ')],
+            [sg.Button('Calcular', size=(15,1)), sg.Button('Sair', size=(15,1))],
+            [sg.Text('         ')],
+            [sg.Text(size=(40,1), key='respostaDicotomica1',  font=('Arial', 11, 'bold'))],
+            [sg.Text(size=(40,1), key='respostaDicotomica2', text_color = 'black')]
+            ]
+    return sg.Window('Busca Dicotômica', layout, size=(400, 400), finalize=True, resizable=True)
+
+def window_secaoAurea():
+    layout = [[sg.Text('SEÇÃO ÁUREA', justification='center', font=('Arial', 11, 'bold'), text_color = '#921224')],
+            [sg.Text('         ')],
+            [sg.Text('Insira a função:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='expressao', size=(30,1))],
+            [sg.Text('Seja o intervalo a <= x <= b, insira:',  font=('Arial', 10, 'bold'), text_color = 'black')],
+            [sg.Text('Valor de a:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='valor_a', size=(10,1))],
+            [sg.Text('Valor de b:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='valor_b', size=(10,1))],
+            [sg.Text('ε = ',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='epsilon', size=(10,1))],
+            [sg.Text('         ')],
+            [sg.Button('Calcular', size=(15,1)), sg.Button('Sair', size=(15,1))],
+            [sg.Text('         ')],
+            [sg.Text(size=(40,1), key='respostaAurea1',  font=('Arial', 11, 'bold'))],
+            [sg.Text(size=(40,1), key='respostaAurea2', text_color = 'black')],
+            [sg.Text(size=(40,1), key='respostaAurea3', text_color = 'black')]
+            ]
+    return sg.Window('Seção Áurea', layout, size=(400, 400), finalize=True, resizable=True)
+
+def window_buscaFibonacci():
+    layout = [[sg.Text('BUSCA FIBONACCI', justification='center', font=('Arial', 11, 'bold'), text_color = '#921224')],
+            [sg.Text('         ')],
+            [sg.Text('Insira a função:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='expressao', size=(30,1))],
+            [sg.Text('Seja o intervalo a <= x <= b, insira:',  font=('Arial', 10, 'bold'), text_color = 'black')],
+            [sg.Text('Valor de a:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='valor_a', size=(10,1))],
+            [sg.Text('Valor de b:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='valor_b', size=(10,1))],
+            [sg.Text('ε = ',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='epsilon', size=(10,1))],
+            [sg.Text('         ')],
+            [sg.Button('Calcular', size=(15,1)), sg.Button('Sair', size=(15,1))],
+            [sg.Text('         ')],
+            [sg.Text(size=(40,1), key='respostaFibonacci1',  font=('Arial', 11, 'bold'))],
+            [sg.Text(size=(40,1), key='respostaFibonacci2', text_color = 'black')],
+            [sg.Text(size=(40,1), key='respostaFibonacci3', text_color = 'black')]
+            ]
+    return sg.Window('Busca Fibonacci', layout, size=(400, 400), finalize=True, resizable=True)
+
+def window_bissecao():
+    layout = [[sg.Text('MÉTODO DA BISSEÇÃO', justification='center', font=('Arial', 11, 'bold'), text_color = '#921224')],
+            [sg.Text('         ')],
+            [sg.Text('Insira a função:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='expressao', size=(30,1))],
+            [sg.Text('Seja o intervalo a <= x <= b, insira:',  font=('Arial', 10, 'bold'), text_color = 'black')],
+            [sg.Text('Valor de a:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='valor_a', size=(10,1))],
+            [sg.Text('Valor de b:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='valor_b', size=(10,1))],
+            [sg.Text('ε = ',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='epsilon', size=(10,1))],
+            [sg.Text('         ')],
+            [sg.Button('Calcular', size=(15,1)), sg.Button('Sair', size=(15,1))],
+            [sg.Text('         ')],
+            [sg.Text(size=(40,1), key='respostaBissecao1',  font=('Arial', 11, 'bold'))],
+            [sg.Text(size=(40,1), key='respostaBissecao2', text_color = 'black')]
+            ]
+    return sg.Window('Bisseção', layout, size=(400, 400), finalize=True, resizable=True)
+
+def window_newton():
+    layout = [[sg.Text('MÉTODO DE NEWTON', justification='center', font=('Arial', 11, 'bold'), text_color = '#921224')],
+            [sg.Text('         ')],
+            [sg.Text('Insira a função:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='expressao', size=(30,1))],
+            [sg.Text('Seja o intervalo a <= x <= b, insira:',  font=('Arial', 10, 'bold'), text_color = 'black')],
+            [sg.Text('Valor de a:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='valor_a', size=(10,1))],
+            [sg.Text('Valor de b:',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='valor_b', size=(10,1))],
+            [sg.Text('ε = ',  font=('Arial', 10, 'bold'), text_color = 'black'), sg.Input(key='epsilon', size=(10,1))],
+            [sg.Text('         ')],
+            [sg.Button('Calcular', size=(15,1)), sg.Button('Sair', size=(15,1))],
+            [sg.Text('         ')],
+            [sg.Text(size=(40,1), key='respostaNewton1',  font=('Arial', 11, 'bold'))],
+            [sg.Text(size=(40,1), key='respostaNewton2', text_color = 'black')]
+            ]
+    return sg.Window('Newton', layout, size=(400, 400), finalize=True, resizable=True)
+
+# Janela Inicial Principal
+def main_window():
+    layout = [[sg.Text(' ', size = (10, 1))],
+            [sg.Text('Selecione a rotina que deseja utilizar:', justification='center', font=('Arial', 11, 'bold'), text_color = '#921224')],
+            [sg.Text(' ', size = (4, 1))],
+            [sg.Button('Busca Uniforme', size=(20,1))],
+            [sg.Button('Busca Dicotômica', size=(20,1))],
+            [sg.Button('Seção Áurea', size=(20,1))],
+            [sg.Button('Busca Fibonacci', size=(20,1))],
+            [sg.Button('Bisseção', size=(20,1))],
+            [sg.Button('Newton', size=(20,1))],
+            [sg.Text(' ', size = (4, 1))],
+            [sg.Button('Sair')]]
+    return sg.Window('PO II - Trabalho 1', layout, size=(400, 400), element_justification='center', finalize=True, resizable=True)
+
+#Metodo Busca Uniforme
+def BuscaUniforme(a,b,delta,atualizarResultado, funcao):
     f = []      # vetor do f(x)
     y = []      # vetor do x
     x = a
     ok = False
     while x <= b:
         y.append(x)
-        atualizarResultado = str(parser.parse(valores['expressao']).evaluate({'x': x}))
+        atualizarResultado = str(parser.parse(funcao).evaluate({'x': x}))
         f.append(float(atualizarResultado))
         x = x + delta
         if len(y) > 1 and len(f) > 1:                
             if(f[len(f)-1] > f[len(f)-2]) and (ok == False):
                 ok = True
+                # Refinamento - depois tentar colocar em uma rotina separada
                 y.pop()
                 y.pop()
                 f.pop()
                 f.pop()
                 x = y[len(y)-1]
                 delta = delta / 10    
-            if(f[len(f)-1] > f[len(f)-2]) and (ok == True):
+            if(f[len(f)-1] >= f[len(f)-2]) and (ok == True):
                 break
-    print("X* = %4f" % y[len(y)-2])
-#   Rotina: Método de Busca Docotômica - giu
+    return (y[len(y)-2])
 
-#   Rotina: Método da Seção Áurea
+#Metodo Secao Aurea
 def SecaoAurea(a,b,epsilon):
     alfa = (-1 + math.sqrt(5))/2
     beta = 1 - alfa
@@ -73,10 +173,9 @@ def SecaoAurea(a,b,epsilon):
         
     x = (a+b)/2
     k += 1
-    print("X* = %.4f" % x)
-    print("k variando de 1 a %d" % k)
+    return (x,k)
 
-#   Rotina: Método de Fibonacci
+#Metodo Busca Fibonacci
 def Fibonacci(a,b,epsilon):
     Fn = (b-a)/epsilon
     
@@ -114,13 +213,9 @@ def Fibonacci(a,b,epsilon):
                 m = a + (F[N-k-2])/F[N-k] * (b-a)
     x = (a+b)/2
     k += 1
-    print("X* = %.4f" % x)
-    print("k variando de 0 a %d" % k)
+    return (x, k)
 
-#   Rotina: Método da Bisseão - Giu
-
-
-#   Rotina: Método de Newton - x^2-3*x+2
+#Metodo Metodo Newton
 def MetodoNewton(funcao, a, b, epsilon):
     x, y, z = symbols('x y z')
     init_printing(use_unicode=True)
@@ -145,27 +240,61 @@ def MetodoNewton(funcao, a, b, epsilon):
                 d1 = float(parser.parse(deriv1).evaluate({'x' : x}))
         else:
             break
-    print("X* = %4f" % k[len(k)-1])
-            
-# Cria janela
-janela = sg.Window('PO2 - Trabalho 1', layout)
+    return (k[len(k)-1])
 
+window1, window2, window3, window4, window5, window6, window7 = main_window(), None, None, None, None, None, None
 parser = Parser()
 
 while True:
-    eventos, valores = janela.read()
-    if eventos == sg.WINDOW_CLOSED:
-        break
-    if eventos == 'Ok':
-        x = float(valores['variavel'])
-        delta = float(valores['delta'])
-        atualizarResultado = str(parser.parse(valores['expressao']).evaluate({'x': x}))
-        funcao = str(parser.parse(valores['expressao']))
-        janela['resultado'].update('Resultado: ' + atualizarResultado)
+    window, event, valores = sg.read_all_windows()
+    if event == 'Sair'or event == sg.WIN_CLOSED:
+        window.close()
 
-        #Testes
-        #BuscaUniforme(-1,6,delta,atualizarResultado)
-        #passei delta como epsilon
-        #SecaoAurea(0.5,2.5,delta)
-        #Fibonacci(0.5,2.5,delta)
-        MetodoNewton(funcao,1.5,2.0,0.01)
+    if window== window1 and event == 'Busca Uniforme':
+        window2 = window_buscaUniforme()
+        window2.move(window1.current_location()[0] + 50, window1.current_location()[1] + 50)
+
+    if window== window1 and event == 'Busca Dicotômica':
+        window3 = window_buscaDicotomica()
+        window3.move(window1.current_location()[0] + 50, window1.current_location()[1] + 50)
+
+    if window== window1 and event == 'Seção Áurea':
+        window4 = window_secaoAurea()
+        window4.move(window1.current_location()[0] + 50, window1.current_location()[1] + 50)
+
+    if window== window1 and event == 'Busca Fibonacci':
+        window5 = window_buscaFibonacci()
+        window5.move(window1.current_location()[0] + 50, window1.current_location()[1] + 50)
+
+    if window== window1 and event == 'Bisseção':
+        window6 = window_bissecao()
+        window6.move(window1.current_location()[0] + 50, window1.current_location()[1] + 50)
+        
+    if window== window1 and event == 'Newton':
+        window7 = window_newton()
+        window7.move(window1.current_location()[0] + 50, window1.current_location()[1] + 50)
+
+    if window == window2 and event == 'Calcular':
+        x = float(valores['valor_a'])
+        atualizarResultado = str(parser.parse(valores['expressao']).evaluate({'x': x}))
+        resultado = BuscaUniforme(float(valores['valor_a']),float(valores['valor_b']), float(valores['delta']), atualizarResultado, valores['expressao'])
+        window2['respostaUniforme1'].update('RESULTADO: ')
+        window2['respostaUniforme2'].update('x* = %.4f' % resultado)
+    
+    if window == window4 and event == 'Calcular':
+        resultado = SecaoAurea(float(valores['valor_a']),float(valores['valor_b']),float(valores['epsilon']))
+        window4['respostaAurea1'].update('RESULTADO: ')
+        window4['respostaAurea2'].update('x* = %.4f' % resultado[0])
+        window4['respostaAurea3'].update('K variando de 1 a %d' % resultado[1])
+
+    if window == window5 and event == 'Calcular':
+        resultado = Fibonacci(float(valores['valor_a']),float(valores['valor_b']),float(valores['epsilon']))
+        window5['respostaFibonacci1'].update('RESULTADO: ')
+        window5['respostaFibonacci2'].update('x* = %.4f' % resultado[0])
+        window5['respostaFibonacci3'].update('K variando de 1 a %d' % resultado[1])
+    
+    if window == window7 and event == 'Calcular':
+        funcao = str(parser.parse(valores['expressao']))
+        resultado = MetodoNewton(funcao,float(valores['valor_a']),float(valores['valor_a']),float(valores['epsilon']))
+        window7['respostaNewton1'].update('RESULTADO: ')
+        window7['respostaNewton2'].update('x* = %.4f' % resultado)
