@@ -2,6 +2,7 @@ import PySimpleGUI as sg
 from sympy.polys.polyoptions import Symbols
 from py_expression_eval import Expression, Parser
 from sympy import *
+from decimal import Decimal
 import math
 
 sg.theme('LightBrown13')
@@ -36,7 +37,8 @@ def window_buscaDicotomica():
             [sg.Button('Calcular', size=(15,1)), sg.Button('Sair', size=(15,1))],
             [sg.Text('         ')],
             [sg.Text(size=(40,1), key='respostaDicotomica1',  font=('Arial', 11, 'bold'))],
-            [sg.Text(size=(40,1), key='respostaDicotomica2', text_color = 'black')]
+            [sg.Text(size=(40,1), key='respostaDicotomica2', text_color = 'black')],
+            [sg.Text(size=(40,1), key='respostaDicotomica3', text_color = 'black')]
             ]
     return sg.Window('Busca Dicotômica', layout, size=(400, 400), finalize=True, resizable=True)
 
@@ -86,7 +88,8 @@ def window_bissecao():
             [sg.Button('Calcular', size=(15,1)), sg.Button('Sair', size=(15,1))],
             [sg.Text('         ')],
             [sg.Text(size=(40,1), key='respostaBissecao1',  font=('Arial', 11, 'bold'))],
-            [sg.Text(size=(40,1), key='respostaBissecao2', text_color = 'black')]
+            [sg.Text(size=(40,1), key='respostaBissecao2', text_color = 'black')],
+            [sg.Text(size=(40,1), key='respostaBissecao3', text_color = 'black')]
             ]
     return sg.Window('Bisseção', layout, size=(400, 400), finalize=True, resizable=True)
 
@@ -145,6 +148,33 @@ def BuscaUniforme(a,b,delta,atualizarResultado, funcao):
             if(f[len(f)-1] >= f[len(f)-2]) and (ok == True):
                 break
     return (y[len(y)-2])
+
+def BuscaDicotomica(a, b, delta, epsilon, funcao):
+    k=1
+    while (b-a)>=epsilon:
+        print (k)
+        #print('k = ', k)
+        #print('a = ', a)
+        #print('b = ', b)
+        x = ((a+b)/2)-delta
+        z = ((a+b)/2)+delta
+        #print('x = ', x)
+        #print('z = ', z)
+        fx = float(parser.parse(valores['expressao']).evaluate({'x': x}))
+        fz = float(parser.parse(valores['expressao']).evaluate({'x': z}))
+        #print('fx = ', fx)
+        #print('fz = ', fz)
+        if fx>fz:
+            a = x
+            #print ('V')
+        elif fx<=fz:
+            b = z
+            #print ('F')
+        k = k+1
+    x = (a+b)/2
+    return (x, k)
+    
+
 
 #Metodo Secao Aurea
 def SecaoAurea(a,b,epsilon):
@@ -215,6 +245,25 @@ def Fibonacci(a,b,epsilon):
     k += 1
     return (x, k)
 
+def MetodoBissecao (funcao, a, b, epsilon):
+    iteracoes = (math.log((b-a)/epsilon)/math.log(2))*1.0
+    round(iteracoes+0.5) 
+    k=1
+    d=1
+    while iteracoes>0:
+        x = (a+b)/2
+        deriv = str(diff(funcao))
+        d = float(parser.parse(deriv).evaluate({'x' : x}))
+        if d==0:
+            return (x, k)
+        elif d>0:
+            b = x
+        else:
+            a = x
+        iteracoes = iteracoes - 1
+        k = k+1
+    return ((a+b)/2, k)
+
 #Metodo Metodo Newton
 def MetodoNewton(funcao, a, b, epsilon):
     x, y, z = symbols('x y z')
@@ -281,6 +330,12 @@ while True:
         window2['respostaUniforme1'].update('RESULTADO: ')
         window2['respostaUniforme2'].update('x* = %.4f' % resultado)
     
+    if window == window3 and event == 'Calcular':
+        resultado = BuscaDicotomica(float(valores['valor_a']), float(valores['valor_b']), float(valores['delta']), float(valores['epsilon']), valores['expressao'])
+        window3['respostaDicotomica1'].update('RESULTADO: ')
+        window3['respostaDicotomica2'].update('x* = %.4f' % resultado[0])
+        window3['respostaDicotomica3'].update('K variando de 1 a %d' % resultado[1])
+
     if window == window4 and event == 'Calcular':
         resultado = SecaoAurea(float(valores['valor_a']),float(valores['valor_b']),float(valores['epsilon']))
         window4['respostaAurea1'].update('RESULTADO: ')
@@ -293,6 +348,12 @@ while True:
         window5['respostaFibonacci2'].update('x* = %.4f' % resultado[0])
         window5['respostaFibonacci3'].update('K variando de 1 a %d' % resultado[1])
     
+    if window == window6 and event == 'Calcular':
+        resultado = MetodoBissecao(valores['expressao'], float(valores['valor_a']),float(valores['valor_b']),float(valores['epsilon']))
+        window6['respostaBissecao1'].update('RESULTADO: ')
+        window6['respostaBissecao2'].update('x* = %.4f' % resultado[0])
+        window6['respostaBissecao3'].update('K variando de 1 a %d' % resultado[1])
+
     if window == window7 and event == 'Calcular':
         funcao = str(parser.parse(valores['expressao']))
         resultado = MetodoNewton(funcao,float(valores['valor_a']),float(valores['valor_a']),float(valores['epsilon']))
