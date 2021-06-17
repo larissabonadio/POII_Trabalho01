@@ -20,7 +20,8 @@ def window_buscaUniforme():
             [sg.Text('         ')],
             [sg.Text('         ')],
             [sg.Text(size=(40,1), key='respostaUniforme1',  font=('Arial', 11, 'bold'))],
-            [sg.Text(size=(40,1), key='respostaUniforme2', text_color = 'black')]
+            [sg.Text(size=(40,1), key='respostaUniforme2', text_color = 'black')],
+            [sg.Text(size=(40,1), key='respostaUniforme3', text_color = 'black')]
             ]
     return sg.Window('Busca Uniforme', layout, size=(400, 400), finalize=True, resizable=True)
 
@@ -105,7 +106,8 @@ def window_newton():
             [sg.Button('Calcular', size=(15,1)), sg.Button('Sair', size=(15,1))],
             [sg.Text('         ')],
             [sg.Text(size=(40,1), key='respostaNewton1',  font=('Arial', 11, 'bold'))],
-            [sg.Text(size=(40,1), key='respostaNewton2', text_color = 'black')]
+            [sg.Text(size=(40,1), key='respostaNewton2', text_color = 'black')],
+            [sg.Text(size=(40,1), key='respostaNewton3', text_color = 'black')]
             ]
     return sg.Window('Newton', layout, size=(400, 400), finalize=True, resizable=True)
 
@@ -124,30 +126,32 @@ def main_window():
             [sg.Button('Sair')]]
     return sg.Window('PO II - Trabalho 1', layout, size=(400, 400), element_justification='center', finalize=True, resizable=True)
 
-#Metodo Busca Uniforme
-def BuscaUniforme(a,b,delta,atualizarResultado, funcao):
-    f = []      # vetor do f(x)
-    y = []      # vetor do x
+def BuscaUniforme(a, b, delta, atualizarResultado, funcao):
+    f = []     
+    y = []    
     x = a
     ok = False
+    k = 0
     while x <= b:
         y.append(x)
-        atualizarResultado = str(parser.parse(funcao).evaluate({'x': x}))
+        atualizarResultado = str(parser.parse(valores['expressao']).evaluate({'x': x}))
         f.append(float(atualizarResultado))
-        x = x + delta
+
         if len(y) > 1 and len(f) > 1:                
             if(f[len(f)-1] > f[len(f)-2]) and (ok == False):
                 ok = True
-                # Refinamento - depois tentar colocar em uma rotina separada
                 y.pop()
                 y.pop()
                 f.pop()
                 f.pop()
-                x = y[len(y)-1]
-                delta = delta / 10    
+                delta = delta / 10
+                x = y[len(y)-1]   
             if(f[len(f)-1] >= f[len(f)-2]) and (ok == True):
+                print(f[len(f)-1])
                 break
-    return (y[len(y)-2])
+        x = x + delta
+        k = k + 1
+    return (y[len(y)-2], k)
 
 def BuscaDicotomica(a, b, delta, epsilon, funcao):
     k=1
@@ -174,10 +178,7 @@ def BuscaDicotomica(a, b, delta, epsilon, funcao):
     x = (a+b)/2
     return (x, k)
     
-
-
-#Metodo Secao Aurea
-def SecaoAurea(a,b,epsilon):
+def SecaoAurea(a, b, epsilon):
     alfa = (-1 + math.sqrt(5))/2
     beta = 1 - alfa
     k = 0
@@ -205,8 +206,7 @@ def SecaoAurea(a,b,epsilon):
     k += 1
     return (x,k)
 
-#Metodo Busca Fibonacci
-def Fibonacci(a,b,epsilon):
+def Fibonacci(a, b, epsilon):
     Fn = (b-a)/epsilon
     
     F = []
@@ -264,7 +264,6 @@ def MetodoBissecao (funcao, a, b, epsilon):
         k = k+1
     return ((a+b)/2, k)
 
-#Metodo Metodo Newton
 def MetodoNewton(funcao, a, b, epsilon):
     x, y, z = symbols('x y z')
     init_printing(use_unicode=True)
@@ -274,9 +273,10 @@ def MetodoNewton(funcao, a, b, epsilon):
     d1 = float(parser.parse(deriv1).evaluate({'x' : x}))    
     k = []
     k.append(x)
-
+    l = 0
+    
     while abs(float(d1)) >= epsilon:
-        
+    
         deriv2 = str(diff(deriv1))
         d2 = float(parser.parse(deriv2).evaluate({'x' : x}))
         
@@ -289,7 +289,8 @@ def MetodoNewton(funcao, a, b, epsilon):
                 d1 = float(parser.parse(deriv1).evaluate({'x' : x}))
         else:
             break
-    return (k[len(k)-1])
+        l = l + 1
+    return (k[len(k)-1], l)
 
 window1, window2, window3, window4, window5, window6, window7 = main_window(), None, None, None, None, None, None
 parser = Parser()
@@ -328,7 +329,8 @@ while True:
         atualizarResultado = str(parser.parse(valores['expressao']).evaluate({'x': x}))
         resultado = BuscaUniforme(float(valores['valor_a']),float(valores['valor_b']), float(valores['delta']), atualizarResultado, valores['expressao'])
         window2['respostaUniforme1'].update('RESULTADO: ')
-        window2['respostaUniforme2'].update('x* = %.4f' % resultado)
+        window2['respostaUniforme2'].update('x* = %.4f' % resultado[0])
+        window2['respostaUniforme3'].update('K variando de 1 a %d' % resultado[1])
     
     if window == window3 and event == 'Calcular':
         resultado = BuscaDicotomica(float(valores['valor_a']), float(valores['valor_b']), float(valores['delta']), float(valores['epsilon']), valores['expressao'])
@@ -358,4 +360,5 @@ while True:
         funcao = str(parser.parse(valores['expressao']))
         resultado = MetodoNewton(funcao,float(valores['valor_a']),float(valores['valor_a']),float(valores['epsilon']))
         window7['respostaNewton1'].update('RESULTADO: ')
-        window7['respostaNewton2'].update('x* = %.4f' % resultado)
+        window7['respostaNewton2'].update('x* = %.4f' % resultado[0])
+        window7['respostaNewton3'].update('K variando de 1 a %d' % resultado[1])
