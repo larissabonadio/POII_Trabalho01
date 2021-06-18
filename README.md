@@ -1,4 +1,5 @@
-# POII_Trabalho01 #
+# POII - Trabalho01: Programação Não Linear Monovariável #
+
 Primeiro trabalho da disciplina de Pesquisa Operacional II;
 
 Neste trabalho foi utilizado o avaliador de expressão matemática py_expression_eval, na linguagem de programação Python.
@@ -18,6 +19,8 @@ Operadores:
     / : Divisão
 
     ^ : Potência
+    
+    % : Divisão inteira
 
     sqrt(x): Raiz Quadrada
 
@@ -62,7 +65,9 @@ Segue alguns exemplos de como utilizar o programa:
 
     Valor decimal (utiliza-se .): 0.5
 
-    Escrita da função: x^2-3*x+2
+    Escrita da função: 
+                    
+                     x^2-3*x+2
 
                      E^x+2
 
