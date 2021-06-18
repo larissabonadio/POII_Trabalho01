@@ -1,12 +1,26 @@
 # POII - Trabalho01: Programação Não Linear Monovariável #
 
-Primeiro trabalho da disciplina de Pesquisa Operacional II;
-
-Neste trabalho foi utilizado o avaliador de expressão matemática py_expression_eval, na linguagem de programação Python.
-
+O trabalho apresenta o desenvolvimento de um programa que determina o ponto de mínimo de uma função, sendo resolvida por um dos métodos abaixo:
+    
+    1. Busca Uniforme
+    
+    2. Busca Dicotômica 
+    
+    3. Seção Áurea 
+    
+    4. Busca de Fibonacci 
+    
+    5. Método da Bisseção
+    
+    6. Método de Newton
+    
+ O usuário poderá escolher entre os métodos acima, e a partir da sua escolha inserir as informações de entrada necessárias para obter a solução, juntamente com a quantidade de iterações feita pelo método.
+ 
 Inicialmente seu ambiente foi preparado para receber apenas expressões matemáticas monovariáveis, além disso seus métodos foram escrito da forma análoga ao apresentado na realidade. 
 
-Abaixo serão descrito alguns aspectos e restrições em seu uso.
+Neste trabalho foi utilizado o avaliador de expressão matemática py_expression_eval, na linguagem de programação Python, de modo.
+
+Abaixo serão descrito alguns aspectos e restrições para o uso adequado do avaliador py_expression_eval.
 
 Operadores:
 
