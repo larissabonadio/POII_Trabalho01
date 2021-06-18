@@ -18,9 +18,7 @@ O trabalho apresenta o desenvolvimento de um programa que determina o ponto de m
  
 Inicialmente seu ambiente foi preparado para receber apenas expressões matemáticas monovariáveis, além disso seus métodos foram escrito da forma análoga ao apresentado na realidade. 
 
-Neste trabalho foi utilizado o avaliador de expressão matemática py_expression_eval, na linguagem de programação Python, de modo.
-
-Abaixo serão descrito alguns aspectos e restrições para o uso adequado do avaliador py_expression_eval.
+Neste trabalho foi utilizado o avaliador de expressão matemática py_expression_eval, na linguagem de programação Python. Abaixo serão descrito alguns aspectos e restrições para o uso adequado do avaliador py_expression_eval.
 
 Operadores:
 
