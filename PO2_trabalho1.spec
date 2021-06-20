@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['PO2_trabalho1.py'],
-             pathex=['C:\\Users\\Larissa\\Desktop\\trab1PO'],
+             pathex=['C:\\Users\\Cliente\\Documents\\BCC UNESP\\SEMESTRE 5\\Pesquisa Operacional II\\POII_Trabalho01'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -27,7 +27,7 @@ exe = EXE(pyz,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=False )
+          console=True )
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
