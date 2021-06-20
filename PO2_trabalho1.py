@@ -153,6 +153,8 @@ def BuscaUniforme(a, b, delta, atualizarResultado, funcao):
                 break
         x = x + delta
         k = k + 1
+        if (k==10000):
+            return (y[len(y)-2], -1)
     return (y[len(y)-2], k)
 
 def BuscaDicotomica(a, b, delta, epsilon, funcao):
@@ -167,6 +169,8 @@ def BuscaDicotomica(a, b, delta, epsilon, funcao):
         elif fx<=fz:
             b = z
         k = k+1
+        if (k==10000):
+            return ((a+b)/2, 0)
     x = (a+b)/2
     return (x, k)
     
@@ -193,7 +197,8 @@ def SecaoAurea(a, b, epsilon):
             b = l
             l = m
             m = a + beta * (b-a)
-        
+        if (k==10000):
+            return ((a+b)/2, 0)
     x = (a+b)/2
     k += 1
     return (x,k)
@@ -322,6 +327,8 @@ while True:
         window2['respostaUniforme2'].update('x* = %.4f' % resultado[0])
         if resultado[1] == 0:
             window2['respostaUniforme3'].update('Não foi possível realizar o refinamento')
+        elif resultado[1]==-1:
+            window2['respostaUniforme3'].update('K variando de 1 a 10000: O método não converge')
         else:
             window2['respostaUniforme3'].update('K variando de 1 a %d' % resultado[1])
     
@@ -329,13 +336,19 @@ while True:
         resultado = BuscaDicotomica(float(valores['valor_a']), float(valores['valor_b']), float(valores['delta']), float(valores['epsilon']), valores['expressao'])
         window3['respostaDicotomica1'].update('RESULTADO: ')
         window3['respostaDicotomica2'].update('x* = %.4f' % resultado[0])
-        window3['respostaDicotomica3'].update('K variando de 1 a %d' % resultado[1])
+        if resultado[1] == 0:
+            window3['respostaDicotomica3'].update('K variando de 1 a 10000: O método não converge')
+        else:
+            window3['respostaDicotomica3'].update('K variando de 1 a %d' % resultado[1])
 
     if window == window4 and event == 'Calcular':
         resultado = SecaoAurea(float(valores['valor_a']),float(valores['valor_b']),float(valores['epsilon']))
         window4['respostaAurea1'].update('RESULTADO: ')
         window4['respostaAurea2'].update('x* = %.4f' % resultado[0])
-        window4['respostaAurea3'].update('K variando de 1 a %d' % resultado[1])
+        if resultado[1] == 0:
+            window4['respostaAurea3'].update('K variando de 1 a 10000: O método não converge')
+        else:
+            window4['respostaAurea3'].update('K variando de 1 a %d' % resultado[1])
 
     if window == window5 and event == 'Calcular':
         resultado = Fibonacci(float(valores['valor_a']),float(valores['valor_b']),float(valores['epsilon']))
