@@ -147,7 +147,6 @@ def BuscaUniforme(a, b, delta, atualizarResultado, funcao):
                 delta = delta / 10
                 x = y[len(y)-1]   
             if(f[len(f)-1] >= f[len(f)-2]) and (ok == True):
-                print(f[len(f)-1])
                 break
         x = x + delta
         k = k + 1
@@ -156,24 +155,14 @@ def BuscaUniforme(a, b, delta, atualizarResultado, funcao):
 def BuscaDicotomica(a, b, delta, epsilon, funcao):
     k=1
     while (b-a)>=epsilon:
-        print (k)
-        #print('k = ', k)
-        #print('a = ', a)
-        #print('b = ', b)
         x = ((a+b)/2)-delta
         z = ((a+b)/2)+delta
-        #print('x = ', x)
-        #print('z = ', z)
         fx = float(parser.parse(valores['expressao']).evaluate({'x': x}))
         fz = float(parser.parse(valores['expressao']).evaluate({'x': z}))
-        #print('fx = ', fx)
-        #print('fz = ', fz)
         if fx>fz:
             a = x
-            #print ('V')
         elif fx<=fz:
             b = z
-            #print ('F')
         k = k+1
     x = (a+b)/2
     return (x, k)
@@ -225,8 +214,6 @@ def Fibonacci(a, b, epsilon):
     m = a + F[N-2]/F[N] * (b-a)
     l = a + F[N-1]/F[N] * (b-a)
     
-    
-    #print(N)
     for k in range(1, N-2):
         fm = parser.parse(valores['expressao']).evaluate({'x': m})
         fl = parser.parse(valores['expressao']).evaluate({'x': l})
@@ -247,10 +234,10 @@ def Fibonacci(a, b, epsilon):
 
 def MetodoBissecao (funcao, a, b, epsilon):
     iteracoes = (math.log((b-a)/epsilon)/math.log(2))*1.0
-    round(iteracoes+0.5) 
+    iteracoes = int(round(iteracoes+0.5))
     k=1
     d=1
-    while iteracoes>0:
+    for i in range (0, iteracoes):
         x = (a+b)/2
         deriv = str(diff(funcao))
         d = float(parser.parse(deriv).evaluate({'x' : x}))
@@ -260,8 +247,8 @@ def MetodoBissecao (funcao, a, b, epsilon):
             b = x
         else:
             a = x
-        iteracoes = iteracoes - 1
-        k = k+1
+        if k!=iteracoes:
+            k = k+1
     return ((a+b)/2, k)
 
 def MetodoNewton(funcao, a, b, epsilon):

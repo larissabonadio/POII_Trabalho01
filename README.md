@@ -1,5 +1,7 @@
 # POII - Trabalho01: Programação Não Linear Monovariável #
 
+Trabalho realizado em Python 3.
+
 O trabalho apresenta o desenvolvimento de um programa que determina o ponto de mínimo de uma função, sendo resolvida por um dos métodos abaixo:
     
     1. Busca Uniforme
@@ -73,6 +75,7 @@ Outras Funções:
 
     exp(x) : Exponencial
 
+
 Segue alguns exemplos de como utilizar o programa:
 
     Valor decimal (utiliza-se .): 0.5
@@ -90,3 +93,24 @@ Segue alguns exemplos de como utilizar o programa:
                      log(2.7)
 
                      log(E)
+
+OBSERVAÇÕES IMPORTANTES:
+
+    Para multiplicação é OBRIGATÓRIO o uso do multiplicador *:
+
+    ERRADO: 2x
+
+    CERTO: 2*x
+
+    
+    Para utilizações das funções acima, é necessário utilizar a mesma escrita para o interpretador reconhecer:
+
+    ERRADO: seno(x), sen(x)
+
+    CERTO: sin(x)
+
+    É NECESSÁRIO UTILIZAR A VARIÁVEL INDEPENDENTE X PARA AS FUNÇÕES! Outras variáveis como a, b, c, x1, z, etc não serão reconhecidas pelo interpretador.
+
+    ERRADO: 2*a+2
+
+    CERTO: 2*x+2
