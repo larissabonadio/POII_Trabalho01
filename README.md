@@ -7,7 +7,7 @@ Larissa de Castro Bonadio - RA: 191020222
 
 Larissa Mayumi Barela Hondo - RA: 191026123
 
-
+#### Informações: ####
 Trabalho realizado em Python 3.
 
 O trabalho apresenta o desenvolvimento de um programa que determina o ponto de mínimo de uma função, sendo resolvida por um dos métodos abaixo:
