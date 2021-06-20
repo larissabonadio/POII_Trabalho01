@@ -4,6 +4,8 @@
 ### Como abrir o executável do projeto: ###
 POII_Trabalho01-main > dist > PO2_trabalho1 > PO2_trabalho1.exe
 
+### Como abrir o executável do projeto: ###
+POII_Trabalho01-main > PO2_trabalho1.py
 
 #### Grupo: ####
 Giulia Rossatto Rocha - RA: 191025372
