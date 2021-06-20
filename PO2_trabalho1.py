@@ -341,7 +341,7 @@ while True:
         resultado = Fibonacci(float(valores['valor_a']),float(valores['valor_b']),float(valores['epsilon']))
         window5['respostaFibonacci1'].update('RESULTADO: ')
         window5['respostaFibonacci2'].update('x* = %.4f' % resultado[0])
-        window5['respostaFibonacci3'].update('K variando de 0g a %d' % resultado[1])
+        window5['respostaFibonacci3'].update('K variando de 0 a %d' % resultado[1])
     
     if window == window6 and event == 'Calcular':
         resultado = MetodoBissecao(valores['expressao'], float(valores['valor_a']),float(valores['valor_b']),float(valores['epsilon']))
