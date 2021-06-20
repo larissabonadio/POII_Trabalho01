@@ -137,15 +137,21 @@ def BuscaUniforme(a, b, delta, atualizarResultado, funcao):
         atualizarResultado = str(parser.parse(valores['expressao']).evaluate({'x': x}))
         f.append(float(atualizarResultado))
 
-        if len(y) > 1 and len(f) > 1:                
+        if len(y) > 1 and len(f) > 1:    
+            print("Entrou no if")       
+            print(y)     
             if(f[len(f)-1] > f[len(f)-2]) and (ok == False):
+                print("Entrou no if if")
                 ok = True
                 y.pop()
                 y.pop()
                 f.pop()
                 f.pop()
                 delta = delta / 10
-                x = y[len(y)-1]   
+                if len(y) == 0:
+                    return (a, 0)
+                else:
+                    x = y[len(y)-1]  
             if(f[len(f)-1] >= f[len(f)-2]) and (ok == True):
                 break
         x = x + delta
@@ -317,7 +323,10 @@ while True:
         resultado = BuscaUniforme(float(valores['valor_a']),float(valores['valor_b']), float(valores['delta']), atualizarResultado, valores['expressao'])
         window2['respostaUniforme1'].update('RESULTADO: ')
         window2['respostaUniforme2'].update('x* = %.4f' % resultado[0])
-        window2['respostaUniforme3'].update('K variando de 1 a %d' % resultado[1])
+        if resultado[1] == 0:
+            window2['respostaUniforme3'].update('Não foi possível realizar o refinamento')
+        else:
+            window2['respostaUniforme3'].update('K variando de 1 a %d' % resultado[1])
     
     if window == window3 and event == 'Calcular':
         resultado = BuscaDicotomica(float(valores['valor_a']), float(valores['valor_b']), float(valores['delta']), float(valores['epsilon']), valores['expressao'])
@@ -335,7 +344,7 @@ while True:
         resultado = Fibonacci(float(valores['valor_a']),float(valores['valor_b']),float(valores['epsilon']))
         window5['respostaFibonacci1'].update('RESULTADO: ')
         window5['respostaFibonacci2'].update('x* = %.4f' % resultado[0])
-        window5['respostaFibonacci3'].update('K variando de 1 a %d' % resultado[1])
+        window5['respostaFibonacci3'].update('K variando de 0 a %d' % resultado[1])
     
     if window == window6 and event == 'Calcular':
         resultado = MetodoBissecao(valores['expressao'], float(valores['valor_a']),float(valores['valor_b']),float(valores['epsilon']))
