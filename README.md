@@ -2,7 +2,9 @@
 
 #### Grupo: ####
 Giulia Rossatto Rocha - RA: 191025372
+
 Larissa de Castro Bonadio - RA: 191020222
+
 Larissa Mayumi Barela Hondo - RA: 191026123
 
 
