@@ -96,21 +96,47 @@ Segue alguns exemplos de como utilizar o programa:
 
 OBSERVAÇÕES IMPORTANTES:
 
-    Para multiplicação é OBRIGATÓRIO o uso do multiplicador *:
+Para multiplicação é OBRIGATÓRIO o uso do multiplicador *:
 
     ERRADO: 2x
 
     CERTO: 2*x
 
     
-    Para utilizações das funções acima, é necessário utilizar a mesma escrita para o interpretador reconhecer:
+Para utilizações das funções acima, é necessário utilizar a mesma escrita para o interpretador reconhecer:
 
     ERRADO: seno(x), sen(x)
 
     CERTO: sin(x)
 
-    É NECESSÁRIO UTILIZAR A VARIÁVEL INDEPENDENTE X PARA AS FUNÇÕES! Outras variáveis como a, b, c, x1, z, etc não serão reconhecidas pelo interpretador.
+É NECESSÁRIO UTILIZAR A VARIÁVEL INDEPENDENTE X PARA AS FUNÇÕES! Outras variáveis como a, b, c, x1, z, etc não serão reconhecidas pelo interpretador.
 
     ERRADO: 2*a+2
 
     CERTO: 2*x+2
+
+NÃO UTILIZAR VÍRGULA PARA REPRESENTAR DECIMAIS
+
+    ERRADO: 0,01
+    
+    CERTO: 0.01
+
+NÃO UTILIZAR BASE 10 PARA INSERIR VALORES DE DELTA (Δ) E EPSILON (ε):
+
+    ERRADO: 10^(-2)
+    
+    CERTO: 0.01
+
+
+EXEMPLO PARA MÉTODO DE BUSCA DICOTÔMICA:
+
+    Inserir função: x^2-3*x+2
+    a = 0.5
+    b = 2.5
+    Δ = 0.01
+    ε = 0.1
+
+O resultado a ser gerado será: 
+
+    x* = 1.5309
+    K variando de 1 a 6
