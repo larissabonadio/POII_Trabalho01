@@ -1,5 +1,10 @@
 # POII - Trabalho01: Programação Não Linear Monovariável #
 
+
+### Como abrir o executável do projeto: ###
+POII_Trabalho01-main > dist > PO2_trabalho1 > PO2_trabalho1.exe
+
+
 #### Grupo: ####
 Giulia Rossatto Rocha - RA: 191025372
 
