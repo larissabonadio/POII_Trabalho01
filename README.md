@@ -1,9 +1,9 @@
 # POII - Trabalho01: Programação Não Linear Monovariável #
 
-## Grupo: ##
-## Giulia Rossatto Rocha - RA: 191025372 ##
-## Larissa de Castro Bonadio - RA: 191020222 ##
-## Larissa Mayumi Barela Hondo - RA: 191026123 ##
+#### Grupo: ####
+Giulia Rossatto Rocha - RA: 191025372
+Larissa de Castro Bonadio - RA: 191020222
+Larissa Mayumi Barela Hondo - RA: 191026123
 
 
 Trabalho realizado em Python 3.
@@ -100,7 +100,7 @@ Segue alguns exemplos de como utilizar o programa:
 
                      log(E)
 
-OBSERVAÇÕES IMPORTANTES:
+### OBSERVAÇÕES IMPORTANTES: ###
 
 Para multiplicação é OBRIGATÓRIO o uso do multiplicador *:
 
